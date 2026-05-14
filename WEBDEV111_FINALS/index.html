@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> LIVE EXPO </title>
+	<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body style>
+	<div class=sidebar>
+		<ul class="sidebarlist">
+			<li>
+				<button type="button" onclick="openConcertsOverlay()">Concerts</button>
+			</li>
+			<li>
+				<button type="button" onclick="openMikuOverlay()">MikuMikuMusic</button>
+			</li>
+			<li>
+				<button type="button" onclick="openLibraryOverlay()">Library</button>
+			</li>
+			<li>
+				<button type="button" onclick="openAboutOverlay()">About Us</button>
+			</li>
+			<li data-role-required="admin" hidden style="margin-top: 40px;">
+				<button type="button" onclick="openAdminOverlay()">Admin Panel</button>
+			</li>
+			<li data-role-required="superadmin" hidden>
+				<button type="button" onclick="openSuperAdminOverlay()">Super Admin Panel</button>
+			</li>
+		</ul>
+	</div>
+
+	<div class="miku-overlay" data-miku-overlay hidden>
+		<div class="miku-panel" role="dialog" aria-modal="true" aria-labelledby="miku-overlay-title">
+			<div class="miku-panel-header">
+				<h2 id="miku-overlay-title">MikuMikuMusic!</h2>
+				<button type="button" class="overlay-close" data-close-miku aria-label="Close MikuMikuMusic overlay">Close</button>
+			</div>
+			<div class="miku-content">
+				<div class="auth-gate" data-auth-gate>
+					<p>You need to be signed in to play songs.</p>
+					<button type="button" onclick="document.querySelector('[data-profile-toggle]').click()">Sign In</button>
+				</div>
+				<div data-auth-content hidden>
+				<div class="miku-music-row">
+					<div class="miku-row-left">
+						<div class="miku-row-title">Songs</div>
+						<button type="button" class="miku-arrow" data-carousel="songs" data-direction="prev" aria-label="Previous songs">‹</button>
+					</div>
+					<div class="miku-card-list carousel" data-carousel="songs">
+						<div class="miku-card" data-track-index="0">
+							<div class="miku-card-cover teo-cover"></div>
+							<div class="miku-card-title">Tabun (ft. Hatsune Miku)</div>
+							<div class="miku-card-subtitle">by Ayase / YOASOBI</div>
+						</div>
+						<div class="miku-card" data-track-index="1">
+							<div class="miku-card-cover ghost-rule-cover"></div>
+							<div class="miku-card-title">Ghost Rule (ft. Hatsune Miku)</div>
+							<div class="miku-card-subtitle">by DECO*27</div>
+						</div>
+						<div class="miku-card" data-track-index="2">
+							<div class="miku-card-cover igaku-cover"></div>
+							<div class="miku-card-title">Igaku (ft. Kasane Teto)</div>
+							<div class="miku-card-subtitle">by Haraguchi Sasuke</div>
+						</div>
+						<div class="miku-card" data-track-index="3">
+							<div class="miku-card-cover meltdown-cover"></div>
+							<div class="miku-card-title">Roshin Yuukai (ft. Kagamine Rin)</div>
+							<div class="miku-card-subtitle">by iroha(sasaki)</div>
+						</div>
+						<div class="miku-card" data-track-index="4">
+							<div class="miku-card-cover king-cover"></div>
+							<div class="miku-card-title">KING (ft. GUMI)</div>
+							<div class="miku-card-subtitle">by Kanaria</div>
+						</div>
+						<div class="miku-card" data-track-index="5">
+							<div class="miku-card-cover rolling-girl-cover"></div>
+							<div class="miku-card-title">Rolling Girl (ft. Hatsune Miku)</div>
+							<div class="miku-card-subtitle">by wowaka</div>
+						</div>
+					</div>
+					<button type="button" class="miku-arrow" data-carousel="songs" data-direction="next" aria-label="Next songs">›</button>
+				</div>
+				<div class="miku-music-row">
+					<div class="miku-row-left">
+						<div class="miku-row-title">Artists</div>
+						<button type="button" class="miku-arrow" data-carousel="artists" data-direction="prev" aria-label="Previous artists">‹</button>
+					</div>
+					<div class="miku-card-list miku-card-list-small carousel" data-carousel="artists">
+						<div class="miku-card artist-card">
+							<div class="miku-artist-circle deco27"></div>
+							<div class="miku-card-title">DECO*27</div>
+						</div>
+						<div class="miku-card artist-card">
+							<div class="miku-artist-circle wowaka"></div>
+							<div class="miku-card-title">Wowaka</div>
+						</div>
+					</div>
+					<button type="button" class="miku-arrow" data-carousel="artists" data-direction="next" aria-label="Next artists">›</button>
+				</div>
+				<div class="miku-music-row">
+					<div class="miku-row-left">
+						<div class="miku-row-title">Albums</div>
+						<button type="button" class="miku-arrow" data-carousel="albums" data-direction="prev" aria-label="Previous albums">‹</button>
+					</div>
+					<div class="miku-card-list carousel" data-carousel="albums">
+						<div class="miku-card album-card">
+							<div class="miku-card-cover"></div>
+							<div class="miku-card-title">Miku Symphony</div>
+						</div>
+					</div>
+					<button type="button" class="miku-arrow" data-carousel="albums" data-direction="next" aria-label="Next albums">›</button>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="miku-overlay" data-about-overlay hidden>
+		<div class="miku-panel" role="dialog" aria-modal="true" aria-labelledby="about-overlay-title">
+			<div class="miku-panel-header">
+				<h2 id="about-overlay-title">About Us</h2>
+				<button type="button" class="overlay-close" data-close-about aria-label="Close About Us overlay">Close</button>
+			</div>
+			<div class="miku-content">
+				<h3>Digital Horizon</h3>
+				<p>Digital Horizon is the leading platform for Vocaloid music discovery and community building. We connect fans, artists, and composers in the vibrant world of virtual singers.</p>
+				<p>Founded in 2025, we've grown to become the premier destination for Vocaloid enthusiasts worldwide, hosting millions of songs, concerts, and creative works.</p>
+
+				<h4>Our Mission</h4>
+				<p>To preserve, celebrate, and advance the art of Vocaloid music by providing the most comprehensive archive and the best tools for discovery, creation, and community engagement.</p>
+
+				<h4>Contact Us</h4>
+				<p>Email: <a href="mailto:contact@digitalhorizon.com">contact@digitalhorizon.com</a></p>
+				<p>Address: 123 Virtual Street, Tokyo, Japan</p>
+				<p>Phone: +81-3-1234-5678</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="miku-overlay" data-library-overlay hidden>
+		<div class="miku-panel" role="dialog" aria-modal="true" aria-labelledby="library-overlay-title">
+			<div class="miku-panel-header">
+				<h2 id="library-overlay-title">Library</h2>
+				<button type="button" class="overlay-close" data-close-library aria-label="Close Library overlay">Close</button>
+			</div>
+			<div class="miku-content">
+				<div class="auth-gate" data-auth-gate>
+					<p>You need to be signed in to see your library.</p>
+					<button type="button" onclick="document.querySelector('[data-profile-toggle]').click()">Sign In</button>
+				</div>
+				<div data-auth-content hidden>
+				<div class="miku-music-row">
+					<div class="miku-row-left">
+						<div class="miku-row-title">Song Playlists</div>
+						<button type="button" class="miku-arrow" data-carousel="song-playlists" data-direction="prev" aria-label="Previous song playlists">‹</button>
+					</div>
+					<div class="miku-card-list carousel" data-carousel="song-playlists">
+						<div class="miku-card"><div class="miku-card-cover" style="background:#2c2c2c;"></div><div class="miku-card-title">My Favorites</div><div class="miku-card-subtitle">Public</div></div>
+					</div>
+					<button type="button" class="miku-arrow" data-carousel="song-playlists" data-direction="next" aria-label="Next song playlists">›</button>
+				</div>
+				<div class="miku-music-row">
+					<div class="miku-row-left">
+						<div class="miku-row-title">Video Playlists</div>
+						<button type="button" class="miku-arrow" data-carousel="video-playlists" data-direction="prev" aria-label="Previous video playlists">‹</button>
+					</div>
+					<div class="miku-card-list carousel" data-carousel="video-playlists">
+						<div class="miku-card"><div class="miku-card-cover" style="background:#2c2c2c;"></div><div class="miku-card-title">Concert Clips</div><div class="miku-card-subtitle">Private</div></div>
+					</div>
+					<button type="button" class="miku-arrow" data-carousel="video-playlists" data-direction="next" aria-label="Next video playlists">›</button>
+				</div>
+				<div class="miku-music-row">
+					<div class="miku-row-left">
+						<div class="miku-row-title">Following Artists</div>
+						<button type="button" class="miku-arrow" data-carousel="following-artists" data-direction="prev" aria-label="Previous artists">‹</button>
+					</div>
+					<div class="miku-card-list miku-card-list-small carousel" data-carousel="following-artists">
+						<div class="miku-card artist-card"><div class="miku-artist-circle deco27"></div><div class="miku-card-title">DECO*27</div></div>
+					</div>
+					<button type="button" class="miku-arrow" data-carousel="following-artists" data-direction="next" aria-label="Next artists">›</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<div class="miku-overlay" data-concerts-overlay hidden>
+		<div class="miku-panel" role="dialog" aria-modal="true" aria-labelledby="concerts-overlay-title">
+			<div class="miku-panel-header">
+				<h2 id="concerts-overlay-title">Concerts</h2>
+				<button type="button" class="overlay-close" data-close-concerts aria-label="Close Concerts overlay">Close</button>
+			</div>
+			<div class="miku-content">
+				<div class="auth-gate" data-auth-gate>
+					<p>You need to be signed in to view concerts.</p>
+					<button type="button" onclick="document.querySelector('[data-profile-toggle]').click()">Sign In</button>
+				</div>
+				<div data-auth-content hidden>
+				<div class="miku-music-row">
+					<div class="miku-row-left">
+						<div class="miku-row-title">Recent Concerts</div>
+						<button type="button" class="miku-arrow" data-carousel="recent-concerts" data-direction="prev" aria-label="Previous">‹</button>
+					</div>
+					<div class="miku-card-list carousel" data-carousel="recent-concerts">
+						<div class="miku-card" onclick="playVideo('placeholder2.mp4')"><div class="miku-card-cover" style="background-image: url('placeholder_image2.png'); background-size: cover; background-position: center;"></div><div class="miku-card-title">Magical Mirai 2025</div><div class="miku-card-subtitle">Tokyo, Japan</div></div>
+					</div>
+					<button type="button" class="miku-arrow" data-carousel="recent-concerts" data-direction="next" aria-label="Next">›</button>
+				</div>
+				<div class="miku-music-row">
+					<div class="miku-row-left">
+						<div class="miku-row-title">World Tours</div>
+						<button type="button" class="miku-arrow" data-carousel="world-tours" data-direction="prev" aria-label="Previous">‹</button>
+					</div>
+					<div class="miku-card-list carousel" data-carousel="world-tours">
+						<div class="miku-card" onclick="playVideo('placeholder.mp4')"><div class="miku-card-cover" style="background-image: url('placeholder_image.png'); background-size: cover; background-position: center;"></div><div class="miku-card-title">Miku Expo 2024</div><div class="miku-card-subtitle">North America</div></div>
+					</div>
+					<button type="button" class="miku-arrow" data-carousel="world-tours" data-direction="next" aria-label="Next">›</button>
+				</div>
+				<div class="miku-music-row">
+					<div class="miku-row-left">
+						<div class="miku-row-title">Archive</div>
+						<button type="button" class="miku-arrow" data-carousel="archive-concerts" data-direction="prev" aria-label="Previous">‹</button>
+					</div>
+					<div class="miku-card-list carousel" data-carousel="archive-concerts">
+						<div class="miku-card" onclick="playVideo('placeholder.mp4')"><div class="miku-card-cover" style="background-image: url('placeholderimage.png'); background-size: cover; background-position: center;"></div><div class="miku-card-title">Mikupa 2011</div><div class="miku-card-subtitle">Sapporo</div></div>
+					</div>
+					<button type="button" class="miku-arrow" data-carousel="archive-concerts" data-direction="next" aria-label="Next">›</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	
+	<div class="miku-overlay" data-admin-overlay data-role-required="admin" hidden>
+		<div class="miku-panel" role="dialog" aria-modal="true" aria-labelledby="admin-overlay-title">
+			<div class="miku-panel-header">
+				<h2 id="admin-overlay-title">Content Management</h2>
+				<button type="button" class="overlay-close" data-close-admin aria-label="Close Admin overlay">Close</button>
+			</div>
+			<div class="miku-content">
+				<ul>
+					<li>Manage Songs / Albums / Artists / Videos</li>
+					<li>Manage Playlists / Featured Content</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	
+	<div class="miku-overlay" data-superadmin-overlay data-role-required="superadmin" hidden>
+		<div class="miku-panel" role="dialog" aria-modal="true" aria-labelledby="superadmin-overlay-title">
+			<div class="miku-panel-header">
+				<h2 id="superadmin-overlay-title">System Administration</h2>
+				<button type="button" class="overlay-close" data-close-superadmin aria-label="Close Super Admin overlay">Close</button>
+			</div>
+			<div class="miku-content">
+				<ul>
+					<li>Add/Remove Admins</li>
+					<li>Roles & Permissions</li>
+					<li>Platform Config / Analytics / Audit Logs</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="miku-overlay" data-video-overlay hidden>
+		<div class="miku-panel" role="dialog" aria-modal="true" aria-labelledby="video-overlay-title">
+			<div class="miku-panel-header">
+				<h2 id="video-overlay-title">Concert Video</h2>
+				<button type="button" class="overlay-close" data-close-video aria-label="Close video overlay">Close</button>
+			</div>
+			<div class="miku-content">
+				<div class="auth-gate" data-auth-gate>
+					<p>You need to be signed in to watch concert videos.</p>
+					<button type="button" onclick="document.querySelector('[data-profile-toggle]').click()">Sign In</button>
+				</div>
+				<div data-auth-content hidden>
+				<video id="concert-video" controls style="width: 100%; border-radius: 8px; aspect-ratio: 16/9; background: #000;"></video>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<nav class="topbar" aria-label="Main navigation">
+		<a class="topbar-logo" aria-label="LIVE EXPO home">
+			<img class=logo src='liveexpowhite.png' alt="LIVE EXPO">
+		</a>
+
+		<form class="search-bar" role="search">
+			<input type="search" name="search" placeholder="Search..." aria-label="Search">
+			<button type="submit" aria-label="Search"><span class="search-icon" aria-hidden="true"></span></button>
+		</form>
+
+		<div class="profile-menu" data-profile-menu>
+			<button type="button" class="profile-button" aria-label="Open profile menu" aria-expanded="false" data-profile-toggle>
+				<span class="profile-icon" aria-hidden="true"></span>
+			</button>
+			<div class="profile-dropdown" hidden data-profile-dropdown>
+				<div data-logged-out>
+					<form class="auth-form" data-signup-form>
+						<p>Sign up</p>
+						<input type="text" name="signup-username" placeholder="Username" aria-label="Sign up username" autocomplete="username">
+						<input type="password" name="signup-password" placeholder="Password" aria-label="Sign up password" autocomplete="new-password">
+						<button type="submit">Sign up</button>
+						<p class="auth-switch">Have an account? <button type="button" data-show-login>Sign in.</button></p>
+					</form>
+					<form class="auth-form" hidden data-login-form>
+						<p>Sign in</p>
+						<input type="text" name="login-username" placeholder="Username" aria-label="Log in username" autocomplete="username">
+						<input type="password" name="login-password" placeholder="Password" aria-label="Log in password" autocomplete="current-password">
+						<button type="submit">Sign in</button>
+						<p class="auth-switch">Don't have an account? <button type="button" data-show-signup>Sign up.</button></p>
+					</form>
+					<div class="auth-modes">
+    <button type="button" class="mode-btn" data-user-mode>User Mode</button>
+    <button type="button" class="mode-btn" data-admin-mode>Admin Mode</button>
+    <button type="button" class="mode-btn" data-root-mode>Super Admin Mode</button>
+</div>
+
+				</div>
+				<div hidden data-logged-in>
+					<p>Signed in as: <span id="display-role">Guest</span></p>
+					<button type="button" data-logout>Log out</button>
+				</div>
+			</div>
+		</div>
+	</nav>
+	
+	
+	<div class="expo">
+		<img src="liveexpowhite.png" alt="LIVE EXPO">
+	</div>
+
+	<div class="feature-rectangles">
+		<a class="fp fp-rectangle vbs-feature-card" href="javascript:void(0)" onclick="openConcertsOverlay()">
+			<div class="bgback2">
+				<img src='vbsmikubg.png'>
+			</div>
+			<div class="frame2">
+				<div class="bginner2"> <img src='vbsmikubg.png'>
+				</div>
+				<div class="fpmiku2"> <img src='vbsmiku.png'> </div>
+				<div class="fp_title2">
+					<p>Discover other concerts!</p>
+					<p></p>
+				</div>
+			</div>
+			<div class="fpartist2">Art by @_SWAV_</div>
+		</a>
+
+		<a class="fp fp-rectangle mmj-feature-card" href="javascript:void(0)" onclick="openMikuOverlay()">
+			<div class="bgback3">
+				<img src='mmj2bg.png'>
+			</div>
+			<div class="frame3">
+				<div class="bginner3"> <img src='mmj2bg.png'>
+				</div>
+				<div class="fpmiku3"> <img src='mmjmiku3.png'> </div>
+				<div class="fp_title3">
+					<p>Feel the music!</p>
+					<p></p>
+				</div>
+			</div>
+			<div class="fpartist3">Art by @sn_ozk</div>
+		</a>
+	</div>
+
+	<a class="fp" href="javascript:void(0)" onclick="playVideo('placeholder2.mp4')">
+	
+		<div class="bgback">
+			<img src='mmj.png'>
+		</div>
+	
+		
+		<div class="frame">
+         <div class="bginner"> <img src='mmj.png'>
+        </div>
+		  <div class="fpmiku"> <img src='mmjmiku2.png'> </div>
+		  
+		  <div class="fp_title">
+                    <p>Relive every moment with Miku!</p>
+                    <p></p>
+            </div>
+		</div>
+                <div class="fpartist">Art by @Lunar_815</div>
+    </a>
+
+	<div class="audio-player" data-player>
+		<img class="audio-cover" src="mikk.png" alt="">
+		<div class="audio-meta">
+			<p class="audio-title"><span class="audio-title-text">No Available Tracks</span></p>
+			<p class="audio-album">Artist</p>
+			<div class="audio-controls">
+				<button type="button" class="audio-button" aria-label="Previous track" data-prev>&lt;&lt;</button>
+				<button type="button" class="audio-button audio-toggle" aria-label="Play track" data-toggle>Play</button>
+				<button type="button" class="audio-button" aria-label="Next track" data-next>&gt;&gt;</button>
+			</div>
+			<div class="audio-progress" role="slider" aria-label="Song progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-seek>
+				<div class="audio-progress-fill" data-progress></div>
+			</div>
+		</div>
+		<audio data-audio=""></audio>
+	</div>
+
+	<footer class="site-footer">
+		<p>© 2026 LiveEXPO - Digital Horizon. All rights reserved.</p>
+		<small><a class="footer-button" href="mailto:contact@liveexpo.com">Contact Us</a></small>
+	</footer>
+
+	<script src="java.js"></script>
+	
+</body>
+</html>
